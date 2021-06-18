@@ -1,6 +1,7 @@
 import React from 'react';
 import { Input } from '../../components/Form/Input';
-import { Container, Header, Title, Form } from './styles';
+import { Button } from '../../components/Form/Button';
+import { Container, Header, Title, Form, Fields } from './styles';
 
 export function Register(){
 
@@ -11,9 +12,12 @@ export function Register(){
       </Header>
 
       <Form>
+        <Fields>
+          <Input placeholder="Nome"/>
+          <Input placeholder="Preço"/>
+        </Fields>
 
-        <Input placeholder="Nome"/>
-        <Input placeholder="Preço"/>
+        <Button title="enviar"/>
 
       </Form>
 

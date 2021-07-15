@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Modal } from 'react-native'
 
 import { Input } from '../../components/Form/Input';
@@ -19,6 +19,7 @@ export function Register(){
     name:'Categoria'
   })
 
+
   
   function handleTransactionsTypeSelect(type: 'up' | 'down'){
     setTransactionType(type);
@@ -31,7 +32,6 @@ export function Register(){
   function handleModalOpenSelectCategory(){
     setCategoryModalOpen(true);
   }
-
 
   return(
     <Container>
@@ -57,7 +57,7 @@ export function Register(){
               isActive={transactionType === 'down'}
             />
           </TransactionsTypes>
-          <CategorySelectButton title="Categoria" onPress={handleModalOpenSelectCategory}/>
+          <CategorySelectButton title={category.name} onPress={handleModalOpenSelectCategory}/>
         </Fields>
 
         <Button 

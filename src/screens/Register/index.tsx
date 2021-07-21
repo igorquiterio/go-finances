@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Modal } from 'react-native'
+import { useForm } from 'react-hook-form'
 
-import { Input } from '../../components/Form/Input';
+import { InputForm } from '../../components/Form/InputForm';
 import { Button } from '../../components/Form/Button';
 import { TransactionTypeButton } from '../../components/Form/TransactionTypeButton';
 import { CategorySelectButton } from '../../components/Form/CategorySelectButton';
@@ -9,16 +10,26 @@ import { Container, Header, Title, Form, Fields, TransactionsTypes } from './sty
 
 import { CategorySelect } from '../CategorySelect';
 
+interface FromData {
+  name: string;
+  amount: string;
+}
+
 export function Register(){
 
   const [transactionType, setTransactionType] = useState('');
   const [categoryModalOpen, setCategoryModalOpen] = useState(false);
+
 
   const [category,setCategory] = useState({
     key: 'category',
     name:'Categoria'
   })
 
+  const {
+    control,
+    handleSubmit
+  } = useForm();
 
   
   function handleTransactionsTypeSelect(type: 'up' | 'down'){
@@ -33,6 +44,19 @@ export function Register(){
     setCategoryModalOpen(true);
   }
 
+  function handleRegister(form: FromData){
+
+    const data = {
+      name: form.name,
+      amount: form.amount,
+      transactionType,
+      category: category.key
+    }
+
+    console.log(data);
+    
+  }
+
   return(
     <Container>
       <Header>
@@ -41,8 +65,16 @@ export function Register(){
 
       <Form>
         <Fields>
-          <Input placeholder="Nome"/>
-          <Input placeholder="Preço"/>
+          <InputForm
+            name="name"
+            placeholder="Nome" 
+            control={control}
+          />
+          <InputForm
+            name="amount"
+            placeholder="Preço"
+            control={control}
+          />
           <TransactionsTypes>
             <TransactionTypeButton 
               type="up"
@@ -62,6 +94,7 @@ export function Register(){
 
         <Button 
           title="enviar"
+          onPress={handleSubmit(handleRegister)}
         />
 
       </Form>
